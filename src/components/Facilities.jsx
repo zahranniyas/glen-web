@@ -1,9 +1,35 @@
 import FaciCard from "./FaciCard";
 import { rooms, bath, wifi, parking, other } from "../assets";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Facilities = () => {
+  const scrollRef = useRef();
+
+  useGSAP(() => {
+    const facilities = gsap.utils.toArray(scrollRef.current.children);
+
+    facilities.forEach((item) => {
+      gsap.from(item, {
+        y: 10 * (facilities.indexOf(item) + 5),
+        opacity: 0,
+        ease: "power1",
+        duration: 1,
+        scrollTrigger: {
+          trigger: item,
+          start: "bottom, bottom",
+          end: "top 20%",
+        },
+      });
+    });
+  }, []);
+
   return (
-    <section id="facilities" className="sm:mt-5 font-josefin">
+    <section ref={scrollRef} id="facilities" className="sm:mt-5 font-josefin">
       <h1 className="text-5xl max-sm:text-4xl uppercase font-bold text-center">
         Our <span className="text-color-3">Facilities</span>
       </h1>

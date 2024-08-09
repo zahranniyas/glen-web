@@ -9,9 +9,36 @@ import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 
 import { gallery } from "../assets";
 
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const Gallery = () => {
+  const scrollRef = useRef();
+
+  useGSAP(() => {
+    const places = gsap.utils.toArray(scrollRef.current.children);
+
+    places.forEach((item) => {
+      gsap.from(item, {
+        y: 10 * (places.indexOf(item) + 5),
+        opacity: 0,
+        ease: "power1",
+        duration: 1,
+        scrollTrigger: {
+          trigger: item,
+          start: "bottom, bottom",
+          end: "top 20%",
+        },
+      });
+    });
+  }, []);
+
   return (
-    <section id="gallery" className="container">
+    <section ref={scrollRef} id="gallery" className="container">
       <h1 className="heading font-josefin uppercase font-bold text-color-3 text-4xl lg:text-5xl">
         Gallery
       </h1>

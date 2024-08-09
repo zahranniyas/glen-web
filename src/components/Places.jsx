@@ -1,10 +1,40 @@
 import Button from "./Button";
 import PlaceVid from "./PlaceVid";
 import { golfVid, gregVid, rambodaVid } from "../assets";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Places = () => {
+  const scrollRef = useRef();
+
+  useGSAP(() => {
+    const places = gsap.utils.toArray(scrollRef.current.children);
+
+    places.forEach((item) => {
+      gsap.from(item, {
+        y: 10 * (places.indexOf(item) + 5),
+        opacity: 0,
+        ease: "power1",
+        duration: 1,
+        scrollTrigger: {
+          trigger: item,
+          start: "bottom, bottom",
+          end: "top 20%",
+        },
+      });
+    });
+  }, []);
+
   return (
-    <section id="places" className="bg-neutral-100 mt-[100px] mb-[50px]">
+    <section
+      ref={scrollRef}
+      id="places"
+      className="bg-neutral-100 mt-[100px] mb-[50px]"
+    >
       <div className="flex lg:flex-row flex-col lg:items-start items-center justify-center mx-20 py-20">
         <div className="lg:w-[25%] lg:text-left w-full text-center lg:mr-10 mr-0">
           <h1 className="uppercase font-bold text-3xl">

@@ -4,8 +4,35 @@ import { format } from "date-fns";
 import Button from "./Button";
 import { addressIcon, emailIcon, phoneIcon } from "../assets";
 import Swal from "sweetalert2";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
+  // GSAP
+  const scrollRef = useRef();
+
+  useGSAP(() => {
+    const places = gsap.utils.toArray(scrollRef.current.children);
+
+    places.forEach((item) => {
+      gsap.from(item, {
+        y: 10 * (places.indexOf(item) + 5),
+        opacity: 0,
+        ease: "power1",
+        duration: 1,
+        scrollTrigger: {
+          trigger: item,
+          start: "bottom, bottom",
+          end: "top 20%",
+        },
+      });
+    });
+  }, []);
+
+  //  Calender logic
   const [openDate, setOpenDate] = useState(false);
 
   const [date, setDate] = useState({
@@ -62,8 +89,9 @@ const Contact = () => {
 
   return (
     <section
+      ref={scrollRef}
       id="contact"
-      className=" flex flex-col text-center lg:text-left lg:flex-row items-center justify-center py-[100px]"
+      className=" bg-[#fffbfc] flex flex-col text-center lg:text-left lg:flex-row items-center justify-center py-[100px]"
     >
       <div className="mx-[100px] max-sm:mx-[10px] mb-[40px] lg:mb-0">
         <h1 className="text-5xl uppercase font-bold mb-2 text-color-3">
@@ -116,7 +144,7 @@ const Contact = () => {
         </p>
       </div>
       <div className="mx-[100px] max-sm:mx-[10px]">
-        <div className="bg-[#fffbfc] p-8 w-[500px] max-sm:w-full rounded-3xl shadow-xl">
+        <div className="bg-white p-8 w-[500px] max-sm:w-full rounded-3xl shadow-xl">
           <form onSubmit={onSubmit} action="#">
             <input
               className=" input-field w-full"

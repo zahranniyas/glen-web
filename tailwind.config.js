@@ -137,8 +137,7 @@ export default {
           "@apply font-josefin text-xs font-bold uppercase tracking-wider": {},
         },
         ".input-field": {
-          "@apply bg-[#fffbfc] text-xs block py-3 px-2 border rounded-lg my-3":
-            {},
+          "@apply text-xs block py-3 px-2 border rounded-lg my-3": {},
         },
       });
       addUtilities({

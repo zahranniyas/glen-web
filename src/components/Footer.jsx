@@ -1,30 +1,83 @@
+import { glenLogoWhite } from "../assets";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const Footer = () => {
+  const scrollRef = useRef();
+
+  useGSAP(() => {
+    const facilities = gsap.utils.toArray(scrollRef.current.children);
+
+    facilities.forEach((item) => {
+      gsap.from(item, {
+        y: 10 * (facilities.indexOf(item) + 5),
+        opacity: 0,
+        ease: "power1",
+        duration: 1,
+        scrollTrigger: {
+          trigger: item,
+          start: "bottom, bottom",
+          end: "top 20%",
+        },
+      });
+    });
+  }, []);
+
   return (
-    <div>
-      <h1>Footer</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error cumque,
-        ex dignissimos earum iure perferendis sint sunt reiciendis beatae ea
-        laboriosam odio ad doloremque velit magnam libero consequatur cupiditate
-        facilis? Voluptates ipsum nihil dolore ipsam. Quia, minima. Corrupti
-        molestiae dolores fugit sint quia explicabo dolore consequuntur alias
-        saepe, ab quo consequatur odit labore! Quia distinctio libero ex, magnam
-        non velit. Aut blanditiis vel doloremque non minus facilis. Ad obcaecati
-        earum quibusdam in possimus incidunt beatae molestiae optio, esse
-        voluptas est exercitationem saepe rerum amet eos impedit nemo aliquam
-        repudiandae voluptatum? Maiores vitae ex nostrum voluptatum ipsa,
-        excepturi eos porro asperiores iure, perspiciatis pariatur sint
-        perferendis optio tenetur voluptatibus dicta facere inventore voluptate
-        tempore reiciendis commodi recusandae consectetur voluptatem. Adipisci,
-        tenetur. Unde, veniam commodi officiis iste amet perspiciatis magnam
-        tempore atque doloribus, necessitatibus aliquid laudantium reprehenderit
-        libero. Totam aperiam rerum dicta nobis placeat ut voluptate laboriosam
-        ipsam error recusandae? Fugit, nihil? Deleniti minus possimus enim
-        corrupti voluptate, eligendi molestiae aperiam error atque fugit
-        incidunt temporibus explicabo corporis veniam commodi ipsum maiores
-        adipisci facilis assumenda, labore architecto repellendus. Deleniti
-        eligendi debitis porro!
-      </p>
+    <div
+      className="flex flex-col lg:flex-row lg:items-start items-center justify-center bg-[#2c0000] text-white px-20 py-10"
+      ref={scrollRef}
+    >
+      <div className="flex justify-center lg:justify-start w-full lg:w-[50%] mb-10 lg:mb-0">
+        <img src={glenLogoWhite} alt="footer logo" width={150} height={150} />
+      </div>
+      <div className="flex justify-center lg:justify-between w-full lg:w-[50%]">
+        <div className="mx-2">
+          <p>Glen Falls Apartment,</p>
+          <p>No. 33, Glen Fall Road,</p>
+        </div>
+        <div className="mx-2">
+          <p>+94 777 48 77 20</p>
+          <p>+94 765 807 720</p>
+          <p>hameezm@yahoo.com</p>
+        </div>
+        <div className="flex flex-col mx-2">
+          <a
+            className="hover:text-color-3 h-[21px] mb-2 w-fit transition-all border-b-[0.5px] border-white hover:border-color-3"
+            href="#home"
+          >
+            Home
+          </a>
+          <a
+            className="hover:text-color-3 h-[21px] mb-2 w-fit transition-all border-b-[0.5px] border-white hover:border-color-3"
+            href="#facilities"
+          >
+            Facilities
+          </a>
+          <a
+            className="hover:text-color-3 h-[21px] mb-2 w-fit transition-all border-b-[0.55px] border-white hover:border-color-3"
+            href="#places"
+          >
+            Places
+          </a>
+          <a
+            className="hover:text-color-3 h-[21px] mb-2 w-fit transition-all border-b-[0.5px] border-white hover:border-color-3"
+            href="#gallery"
+          >
+            Gallery
+          </a>
+          <a
+            className="hover:text-color-3 h-[21px] w-fit transition-all border-b-[0.5px] border-white hover:border-color-3"
+            href="#contact"
+          >
+            Contact
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

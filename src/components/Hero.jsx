@@ -6,6 +6,8 @@ import { format } from "date-fns";
 import Button from "./Button";
 import { hero01, hero02, hero03 } from "../assets";
 import Swal from "sweetalert2";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 // import { blueBg, redBg } from "../assets";
 
 // CONTACT FORM
@@ -40,6 +42,57 @@ const onSubmit = async (event) => {
 };
 
 const Hero = () => {
+  // GSAP Animation
+  useGSAP(() => {
+    gsap.from("#imgOne", {
+      opacity: 0,
+      y: 10,
+      ease: "power1",
+      duration: 1,
+    });
+    gsap.from("#imgTwo", {
+      opacity: 0,
+      y: 10,
+      ease: "power1",
+      duration: 1,
+      delay: 0.2,
+    });
+    gsap.from("#imgThree", {
+      opacity: 0,
+      y: 10,
+      ease: "power1",
+      duration: 1,
+      delay: 0.4,
+    });
+    gsap.from("#heroText1", {
+      opacity: 0,
+      y: 10,
+      duration: 1,
+      ease: "power1",
+    });
+    gsap.from("#heroText2", {
+      opacity: 0,
+      y: 10,
+      duration: 1,
+      ease: "power1",
+      delay: 0.2,
+    });
+    gsap.from("#heroText3", {
+      opacity: 0,
+      y: 10,
+      duration: 1,
+      ease: "power1",
+      delay: 0.4,
+    });
+    gsap.from(".book-main", {
+      opacity: 0,
+      y: 10,
+      duration: 1,
+      delay: 0.5,
+      ease: "power1",
+    });
+  });
+
   const [openDate, setOpenDate] = useState(false);
 
   const [date, setDate] = useState({
@@ -71,8 +124,13 @@ const Hero = () => {
       <div className="flex h-full max-sm:h-auto max-sm:justify-start max-sm:pt-10 items-center justify-center flex-col">
         <div className="flex max-sm:flex-col max-sm:text-center">
           <div className="flex max-sm:mb-5 max-sm:w-[100%] w-[50%] flex-col font-josefin justify-center uppercase">
-            <p className="max-sm:text-xs">The perfect place to</p>
-            <div className="text-color-3 text-6xl max-sm:text-5xl lg:text-8xl font-bold mt-5 max-sm:mt-2 relative">
+            <p id="heroText1" className="max-sm:text-xs">
+              The perfect place to
+            </p>
+            <div
+              id="heroText2"
+              className="text-color-3 text-6xl max-sm:text-5xl lg:text-8xl font-bold mt-5 max-sm:mt-2 relative"
+            >
               <p>unwind</p>
               <p>yourself</p>
               {/* <img
@@ -86,29 +144,37 @@ const Hero = () => {
                 className="absolute top-[-80px] right-[-20px]"
               /> */}
             </div>
-            <p className="max-sm:text-xs">
+            <p id="heroText3" className="max-sm:text-xs">
               In the midst of the beautiful landscape <br /> of nuwara eliya,
               the little england
             </p>
           </div>
           <div className="flex items-center w-[50%] max-sm:w-[90%] max-sm:m-auto">
             <div className="flex flex-col mr-5 w-[50%] items-end">
-              <img src={hero01} alt="hero01" className=" mb-5" />
-              <img src={hero02} alt="hero02" className="" />
+              <img id="imgOne" src={hero01} alt="hero01" className="mb-5" />
+              <img id="imgTwo" src={hero02} alt="hero02" className="" />
             </div>
             <div className="w-[50%]">
-              <img src={hero03} alt="hero03" className="top-[70px] relative" />
+              <img
+                id="imgThree"
+                src={hero03}
+                alt="hero03"
+                className="top-[70px] relative"
+              />
             </div>
           </div>
         </div>
         <Button
-          className="shadow-xl z-49 relative bottom-[-60px] sm:hidden"
+          className="book-main shadow-xl z-49 relative bottom-[-60px] sm:hidden"
           href="#contact"
         >
           Booking
         </Button>
-        <div className=" bottom-15 max-md:bottom-[-50px] max-sm:hidden relative">
-          <div className="font-josefin text-sm shadow-xl bg-white m-auto z-49 relative rounded-3xl">
+        <div className="bottom-15 max-md:bottom-[-50px] max-sm:hidden relative">
+          <div
+            id="bookMain"
+            className="book-main overflow-hidden font-josefin text-sm shadow-xl bg-white m-auto z-49 relative rounded-3xl"
+          >
             <form
               onSubmit={onSubmit}
               className="bg-transparent flex justify-center items-center py-2"
